@@ -3,8 +3,12 @@
 
 namespace Dagger
 {
-	typedef Float32 = float;
-	typedef Float64 = double;
+#define GLOBAL static
+#define INTERNAL static
+#define LOCAL_PERSISTENT static
+
+	using Float32 = float;
+	using Float64 = double;
 }
 
 #endif
