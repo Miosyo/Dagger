@@ -19,14 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Dagger\ShaderProgram.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Dagger\Common.hpp" />
+    <ClInclude Include="include\Dagger\ShaderProgram.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
+    <None Include="data\shaders\default.frag" />
+    <None Include="data\shaders\default.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{18DD698F-491A-4729-905E-ED24285D50CE}</ProjectGuid>

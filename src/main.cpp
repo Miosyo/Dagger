@@ -1,14 +1,18 @@
 #include <iostream>
+#include <string>
+#include <cmath>
+#include <fstream>
 
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
 
 #include <Dagger\Common.hpp>
+#include <Dagger\ShaderProgram.hpp>
 
 GLOBAL const int g_windowWidth = 854;
 GLOBAL const int g_windowHeight = 480;
 
-void glfwHints()
+INTERNAL void glfwHints()
 {
 	glfwWindowHint(GLFW_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_VERSION_MINOR, 3);
@@ -46,41 +50,12 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	const char* vertexSource = {
-		"#version 120\n"
-		"\n"
-		"attribute vec2 position;"
-		"void main()"
-		"{"
-		"gl_Position = vec4(position, 0, 1.0);"
-		"}"
-	};
-
-	const char* fragmentSource = {
-		"#version 120\n"
-		"\n"
-		"void main()"
-		"{"
-		"gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);"
-		"}"
-	};
-
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexSource, nullptr);
-	glCompileShader(vertexShader);
-
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentSource, nullptr);
-	glCompileShader(fragmentShader);
-
-	GLuint shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-
-	glBindAttribLocation(shaderProgram, 0, "position");
-
-	glLinkProgram(shaderProgram);
-	glUseProgram(shaderProgram);
+	Dagger::ShaderProgram shader;
+	shader.attachShaderFromFile(Dagger::ShaderType::VERTEX, "data/shaders/default.vert");
+	shader.attachShaderFromFile(Dagger::ShaderType::FRAGMENT, "data/shaders/default.frag");
+	shader.bindAttribLocation(0, "vertPosition");
+	shader.link();
+	shader.use();
 
 	while (isRunning)
 	{
