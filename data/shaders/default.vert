@@ -1,8 +1,9 @@
 #version 330
 
-attribute vec2  vertPosition;
+attribute vec2 position;
 
 void main()
 {
-	gl_Position = vec4(vertPosition, 0.0, 1.0);
+    // Transforming The Vertex
+    gl_Position = vec4(position, 0.0, 1.0);
 }

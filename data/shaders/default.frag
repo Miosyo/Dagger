@@ -2,5 +2,6 @@
 
 void main()
 {
-	gl_FragColor = vec4(0.0, 0.8, 0.5, 1.0);
+    // Setting Each Pixel To Red
+    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
