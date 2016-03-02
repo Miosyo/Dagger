@@ -19,7 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Dagger\Mesh.cpp" />
+    <ClCompile Include="src\Game\DevScene.cpp" />
     <ClCompile Include="src\Dagger\Entity.cpp" />
+    <ClCompile Include="src\Dagger\Game.cpp" />
+    <ClCompile Include="src\Dagger\Input.cpp" />
     <ClCompile Include="src\Dagger\Renderer.cpp" />
     <ClCompile Include="src\Dagger\ResourceManager.cpp" />
     <ClCompile Include="src\Dagger\SceneManager.cpp" />
@@ -37,12 +41,18 @@
     <ClInclude Include="include\Dagger\Common.hpp" />
     <ClInclude Include="include\Dagger\Component.hpp" />
     <ClInclude Include="include\Dagger\Entity.hpp" />
+    <ClInclude Include="include\Dagger\Game.hpp" />
+    <ClInclude Include="include\Dagger\Input.hpp" />
+    <ClInclude Include="include\Dagger\Loader.h" />
+    <ClInclude Include="include\Dagger\Mesh.hpp" />
     <ClInclude Include="include\Dagger\Renderer.hpp" />
     <ClInclude Include="include\Dagger\ResourceManager.hpp" />
     <ClInclude Include="include\Dagger\Scene.hpp" />
     <ClInclude Include="include\Dagger\SceneManager.hpp" />
     <ClInclude Include="include\Dagger\Shader.hpp" />
     <ClInclude Include="include\Dagger\Texture2D.hpp" />
+    <ClInclude Include="include\Dagger\Vertex.hpp" />
+    <ClInclude Include="include\Game\DevScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />

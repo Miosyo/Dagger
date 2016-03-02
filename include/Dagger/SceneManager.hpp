@@ -17,7 +17,7 @@ namespace Dagger
 		~SceneManager();
 
 		void UpdateScene(float dt);
-		void RenderScene(Renderer& renderer);
+		void RenderScene();
 
 		void PopScene();
 		void PushScene(Scene* newScene);

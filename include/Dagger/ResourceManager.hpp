@@ -2,6 +2,7 @@
 #define DAGGER_RESOURCEMANAGER_H
 
 #include <map>
+#include <vector>
 #include <string>
 #include <iostream>
 #include <sstream>

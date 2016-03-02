@@ -7,7 +7,6 @@ namespace Dagger
 	std::map<std::string, Texture2D>    ResourceManager::Textures;
 	std::map<std::string, Shader>       ResourceManager::Shaders;
 
-
 	Shader ResourceManager::LoadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, std::string name)
 	{
 		Shaders[name] = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile);

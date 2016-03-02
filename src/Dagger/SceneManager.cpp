@@ -9,7 +9,11 @@ namespace Dagger
 
 	SceneManager::~SceneManager()
 	{
-
+		for (Scene* s : scenes)
+		{
+			s->Destroy();
+			delete s;
+		}
 	}
 
 	void SceneManager::UpdateScene(float dt)
@@ -20,11 +24,11 @@ namespace Dagger
 		}
 	}
 
-	void SceneManager::RenderScene(Renderer& renderer)
+	void SceneManager::RenderScene()
 	{
 		if (scenes.back() != NULL)
 		{
-			scenes.back()->OnRender(renderer);
+			scenes.back()->OnRender();
 		}
 	}
 

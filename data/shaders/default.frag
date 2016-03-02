@@ -1,7 +1,13 @@
-#version 330
+#version 330 core
+
+in vec4 outColor;
+in vec2 outUV;
+
+out vec3 color;
+
+uniform sampler2D tex;
 
 void main()
 {
-    // Setting Each Pixel To Red
-    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+	color = texture(tex, outUV).rgb;// * outColor.rgb;
 }
