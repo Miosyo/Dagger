@@ -2,71 +2,61 @@
 
 namespace Dagger
 {
-	Mesh::Mesh()
-		:m_data(), m_generated(false), m_VBO(0),
-		m_IBO(0), m_drawType(GL_TRIANGLES), m_drawCount(0)
+	void Mesh::setupMesh()
 	{
-		glGenBuffers(1, &m_VBO);
-		glGenBuffers(1, &m_IBO);
+		//Gen the buffers
+		glGenVertexArrays(1, &m_vao);
+		glGenBuffers(1, &m_vbo);
+		glGenBuffers(1, &m_ibo);
+
+		glBindVertexArray(m_vao);
+
+		//load data into vertex buffer
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+		//load data into the index buffer
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
+		//set the attribute pointers
+		//POSITION
+		glEnableVertexAttribArray(ATTRIBUTE::POSITION);
+		glVertexAttribPointer(ATTRIBUTE::POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Position));
+		//NORMAL
+		glEnableVertexAttribArray(ATTRIBUTE::NORMAL);
+		glVertexAttribPointer(ATTRIBUTE::NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Normal));
+		//UV
+		glEnableVertexAttribArray(ATTRIBUTE::TEXCOORD);
+		glVertexAttribPointer(ATTRIBUTE::TEXCOORD, 2, GL_FLOAT, GL_TRUE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TexCoords));
+
+		//unbind VAO
+		glBindVertexArray(0);
 	}
 
-	Mesh::Mesh(const Data& data)
-		:m_data(data), m_generated(false), m_VBO(0),
-		m_IBO(0), m_drawType(data.drawType), m_drawCount(data.indices.size())
+	Mesh::Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals, std::vector<glm::vec2> uvs, std::vector<GLuint> indices)
 	{
-		glGenBuffers(1, &m_VBO);
-		glGenBuffers(1, &m_IBO);
-		generate();
+		for (int i = 0; i < vertices.size(); i++)
+		{
+			if (vertices[i] != glm::vec3(0, 0, 0))
+			this->vertices.push_back({{ vertices[i] }, {}, {}});
+		}
+		for (int i = 0; i < normals.size(); i++)
+		{
+			this->vertices[i] = Vertex({ { },{normals[i]},{} });
+		}
+		for (int i = 0; i < uvs.size(); i++)
+		{
+			this->vertices[i] = Vertex({ {},{ },{uvs[i]} });
+		}
+
+		this->indices = indices;
+		setupMesh();
 	}
 
-	void Mesh::addData(const Data& data)
+	void Mesh::Draw(Shader & shader)
 	{
-		m_data = data;
-		m_drawType = data.drawType;
-		m_drawCount = data.indices.size();
-		m_generated = false;
-	}
-
-	void Mesh::generate()
-	{
-		if (m_generated) return;
-
-		m_drawType = m_data.drawType;
-		m_drawCount = m_data.indices.size();
-
-		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * m_data.vertices.size(), &m_data.vertices[0], GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLint) * m_data.indices.size(), &m_data.indices[0], GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-		m_generated = true;
-	}
-
-	void Mesh::draw()
-	{
-		if (!m_generated)
-			generate();
-
-		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
-		glEnableVertexAttribArray((GLuint)AttribLocation::POSITION);
-		glEnableVertexAttribArray((GLuint)AttribLocation::COLOR);
-		glEnableVertexAttribArray((GLuint)AttribLocation::TEXCOORD);
-
-		glVertexAttribPointer((GLuint)AttribLocation::POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)(sizeof(GLfloat)*3));
-		glVertexAttribPointer((GLuint)AttribLocation::COLOR, 4, GL_FLOAT, GL_TRUE, sizeof(Vertex), (const GLvoid*)(sizeof(GLfloat)*4));
-		glVertexAttribPointer((GLuint)AttribLocation::TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)(sizeof(GLfloat)*2));
-
-		glDrawElements(m_drawType, 6, GL_UNSIGNED_INT, (void*)0);
-
-		glDisableVertexAttribArray((GLuint)AttribLocation::POSITION);
-		glDisableVertexAttribArray((GLuint)AttribLocation::COLOR);
-		glDisableVertexAttribArray((GLuint)AttribLocation::TEXCOORD);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		// Draw mesh
+		glBindVertexArray(m_vao);
+		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
 	}
 }

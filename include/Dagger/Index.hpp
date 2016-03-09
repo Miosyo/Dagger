@@ -1,12 +1,9 @@
-#ifndef DAGGER_VERTEX_HPP
-#define DAGGER_VERTEX_HPP
-
-#include <GL\glew.h>
-#include <glm\glm.hpp>
+#ifndef DAGGER_INDEX_HPP
+#define DAGGER_INDEX_HPP
 
 namespace Dagger
 {
-	struct Vertex {
+	struct Index {
 		// Position
 		glm::vec3 Position;
 		// Normal

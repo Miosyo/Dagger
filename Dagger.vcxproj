@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Dagger\Model.cpp" />
     <ClCompile Include="src\Dagger\Mesh.cpp" />
     <ClCompile Include="src\Game\DevScene.cpp" />
     <ClCompile Include="src\Dagger\Entity.cpp" />
@@ -42,9 +43,11 @@
     <ClInclude Include="include\Dagger\Component.hpp" />
     <ClInclude Include="include\Dagger\Entity.hpp" />
     <ClInclude Include="include\Dagger\Game.hpp" />
+    <ClInclude Include="include\Dagger\Index.hpp" />
     <ClInclude Include="include\Dagger\Input.hpp" />
     <ClInclude Include="include\Dagger\Loader.h" />
     <ClInclude Include="include\Dagger\Mesh.hpp" />
+    <ClInclude Include="include\Dagger\Model.hpp" />
     <ClInclude Include="include\Dagger\Renderer.hpp" />
     <ClInclude Include="include\Dagger\ResourceManager.hpp" />
     <ClInclude Include="include\Dagger\Scene.hpp" />
@@ -286,7 +289,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>include;external/glfw-3.1.2.bin.WIN32/include;external\glew-1.13.0-win32\glew-1.13.0\include;external\glm\;external\Simple OpenGL Image Library\src</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>external\glfw-3.1.2.bin.WIN32\lib-vc2015;external\glew-1.13.0-win32\glew-1.13.0\lib\Release\Win32;external\Simple OpenGL Image Library\lib</AdditionalLibraryDirectories>
@@ -308,7 +311,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>include;external/glfw-3.1.2.bin.WIN32/include;external\glew-1.13.0-win32\glew-1.13.0\include;external\glm\;external\Simple OpenGL Image Library\src</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

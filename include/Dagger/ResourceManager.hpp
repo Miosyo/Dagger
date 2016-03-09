@@ -11,8 +11,10 @@
 #include <GL/glew.h>
 #include <SOIL.h>
 
-#include <Dagger/Texture2D.hpp>
-#include <Dagger/Shader.hpp>
+#include <Dagger\Texture2D.hpp>
+#include <Dagger\Shader.hpp>
+#include <Dagger\Mesh.hpp>
+#include <Dagger\Model.hpp>
 
 namespace Dagger
 {
@@ -25,8 +27,9 @@ namespace Dagger
 	{
 	public:
 		// Resource storage
-		static std::map<std::string, Shader>    Shaders;
+		static std::map<std::string, Shader> Shaders;
 		static std::map<std::string, Texture2D> Textures;
+		static std::map<std::string, Model> Models;
 		// Loads (and generates) a shader program from file loading vertex, fragment (and geometry) shader's source code. If gShaderFile is not nullptr, it also loads a geometry shader
 		static Shader   LoadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, std::string name);
 		// Retrieves a stored sader
@@ -35,8 +38,12 @@ namespace Dagger
 		static Texture2D LoadTexture(const GLchar *file, GLboolean alpha, std::string name);
 		// Retrieves a stored texture
 		static Texture2D GetTexture(std::string name);
+		// Loads (and generates) a Model
+		static Model LoadModel(std::string name);
+		// Retrieves a stored model
+		static Model GetModel(std::string name);
 		// Properly de-allocates all loaded resources
-		static void      Clear();
+		static void Clear();
 	private:
 		// Private constructor, that is we do not want any actual resource manager objects. Its members and functions should be publicly available (static).
 		ResourceManager() { }
@@ -44,6 +51,8 @@ namespace Dagger
 		static Shader    loadShaderFromFile(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile = nullptr);
 		// Loads a single texture from file
 		static Texture2D loadTextureFromFile(const GLchar *file, GLboolean alpha);
+		// Loads a mesh from file
+		static Mesh LoadMeshFromFile(const GLchar *file);
 	};
 }
 #endif
